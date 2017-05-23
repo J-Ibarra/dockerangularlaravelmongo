@@ -3,8 +3,10 @@
 namespace App\Exceptions;
 
 use Exception;
+use App\Libraries\Out;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -44,6 +46,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof NotFoundHttpException)
+            return Out::exception('NotFoundHttpException', 'check the endpoint', 'invalid endpoint');
+
         return parent::render($request, $exception);
     }
 
@@ -56,10 +61,6 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
-        }
-
-        return redirect()->guest(route('login'));
+        return Out::json(null, 'unauthenticated', false);
     }
 }
