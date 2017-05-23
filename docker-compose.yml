@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+
+    nginx:
+        image: nginx:1.13
+        container_name: app-nginx
+        ports:
+            - "8000:80"
+        volumes:
+            - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
+            - ./angular-dist:/var/www/html/angular
+            - ./laravel:/var/www/html/laravel
+
+    php:
+        build:
+            context: ./config
+            dockerfile: php.dockerfile
+        container_name: app-php
+        volumes:
+            - ./laravel:/var/www/html/laravel
+
+    mongo:
+        image: mongo:3.4
+        container_name: app-mongo
+        volumes:
+            - ./mongo/data:/data/db
+
