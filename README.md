@@ -81,6 +81,12 @@
 		barryvdh/laravel-cors
 		laravel/passport
 
+	command:
+		jcs:client
+			docker exec -it app-php bash
+			cd laravel
+			php artisan jcs:client
+
 
 **`Mongo`**
 
