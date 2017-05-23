@@ -182,6 +182,8 @@ return [
          */
         Moloquent\MongodbServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
+        Moloquent\Passport\PassportServiceProvider::class,
 
     ],
 

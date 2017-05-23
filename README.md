@@ -79,6 +79,7 @@
     requiere:
     	moloquent/moloquent:dev-master
 		barryvdh/laravel-cors
+		laravel/passport
 
 
 **`Mongo`**
